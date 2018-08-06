@@ -1,0 +1,7 @@
+input.ng-invalid.ng-touched {
+  background: rgba(244, 66, 101, .3);
+  border: rgba(244, 66, 101, 1);
+}
+.help-block, .required {
+  color: rgba(244, 66, 101, 1);
+}

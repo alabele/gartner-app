@@ -1,0 +1,49 @@
+<div class="create-product">
+  <form (ngSubmit)="onSubmit(form)" #form="ngForm" class="needs-validation" novalidate>
+      <div class="form-group">
+        <label for="name">Product Name<span class="required">*</span><br/><span class="small">(max 50 characters)</span></label>
+        <input type="text"
+        id="name"
+        name="name"
+        class="form-control"
+        maxlength="50"
+        ngModel
+        required
+        #nameInput="ngModel">
+        <div class="help-block small" *ngIf="nameInput.invalid && nameInput.touched">
+            Please provide a Product Name.
+        </div>
+        <label for="description">Product Description <br/><span class="small">(max 200 characters)</span></label>
+        <textarea type="textarea" id="description" name="description" class="form-control" rows="5" maxlength="200" ngModel></textarea>
+        <label for="url">Product URL<br/><span class="small">(max 500 characters)</span></label>
+        <input type="text"
+        id="url"
+        name="url"
+        class="form-control"
+        maxlength="500"
+        pattern="^(http|https)://"
+        ngModel
+        #urlInput="ngModel">
+        <div class="help-block small" *ngIf="urlInput.invalid && urlInput.touched">
+            Please provide a url with either http:// or https://
+        </div>
+        <p>Select Product Categories: </p>
+        <div class="form-check" *ngFor="let option of categories">
+            <input class="form-check-input" [name]="'category_'+option.value" type="checkbox" [id]="option.value" [value]="option.value" ngModel >
+            <label class="form-check-label" [for]="option.value">
+              {{option.display}}
+            </label>
+            <div class="help-block small" *ngIf="nameInput.invalid && nameInput.touched">
+            Please provide a Product Name.
+        </div>
+        </div><!-- .form-check -->
+        <div class="form-group">
+            <label for="categorySelect">Example multiple select</label>
+            <select multiple class="form-control" id="categorySelect" name="categorySelect" ngModel>
+              <option *ngFor="let option of categories" [value]="option.CategoryId">{{option.Name}}</option>
+            </select>
+          </div>
+        <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Add Product</button>
+      </div><!-- .form-group -->
+  </form>
+</div><!-- .create-product-->
