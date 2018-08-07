@@ -27,18 +27,9 @@
         <div class="help-block small" *ngIf="urlInput.invalid && urlInput.touched">
             Please provide a url with either http:// or https://
         </div>
-        <p>Select Product Categories: </p>
-        <div class="form-check" *ngFor="let option of categories">
-            <input class="form-check-input" [name]="'category_'+option.value" type="checkbox" [id]="option.value" [value]="option.value" ngModel >
-            <label class="form-check-label" [for]="option.value">
-              {{option.display}}
-            </label>
-            <div class="help-block small" *ngIf="nameInput.invalid && nameInput.touched">
-            Please provide a Product Name.
-        </div>
-        </div><!-- .form-check -->
-        <div class="form-group">
-            <label for="categorySelect">Example multiple select</label>
+        <p *ngIf="categories?.length === 0">No Product Categories :(</p>
+        <div class="form-group" *ngIf="categories?.length > 0">
+            <label for="categorySelect">Select Product Categories:</label>
             <select multiple class="form-control" id="categorySelect" name="categorySelect" ngModel>
               <option *ngFor="let option of categories" [value]="option.CategoryId">{{option.Name}}</option>
             </select>

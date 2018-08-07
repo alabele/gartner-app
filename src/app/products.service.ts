@@ -6,17 +6,21 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class ProductService {
   private rootProducts = [
-    { name: 'Product1', description: 'lorem ipsum product 1'},
-    { name: 'Product2', description: 'lorem ipsum product 2'},
-    { name: 'Product3', description: 'lorem ipsum product 3'}
+    { name: 'Product1', description: 'lorem ipsum product 1', id: '1'},
+    { name: 'Product2', description: 'lorem ipsum product 2', id: '2'},
+    { name: 'Product3', description: 'lorem ipsum product 3', id: '3'}
   ]
 
-  productCategories = [];
+  productCategories = [{ CategoryId: 1, Name: "Lauren"}];
+
+  categoriesChanged = new Subject<void>();
 
   token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiIxMCIsInVuaXF1ZV9uYW1lIjoiaW50ZXJ2aWV3YXBpQGdhcnRuZXIuY29tIiwiZW1haWwiOiJpbnRlcnZpZXdhcGlAZ2FydG5lci5jb20iLCJuYmYiOjE1MzMwNjQyMjIsImV4cCI6MTU5MzA2NDE2MiwiaWF0IjoxNTMzMDY0MjIyfQ.M7Sqp47Zpq5_zqkxiLwZVCjpSiKpOL2CkwgFSo3V624';
 
   http: Http;
-  static productCategories: any;
+  //static productCategories: any;
+
+
 
   constructor (http: Http) {
     this.http = http;
@@ -47,10 +51,13 @@ export class ProductService {
       )
       .subscribe(
         (data) => {
+          this.productCategories = data;
+           console.log("HURRAY", this.productCategories);
+           this.categoriesChanged.next();
           //console.log(data);
          // this.productCategories = data;
          // console.log("product Categories", this.productCategories);
-         return data;
+         //return data;
         }
       );
   }

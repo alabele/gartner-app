@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {ProductService} from '../products.service';
 
 @Component({
@@ -7,7 +7,7 @@ import {ProductService} from '../products.service';
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-
+  @Input() product;
   prodService: ProductService;
 
   constructor(prodService: ProductService) {

@@ -1,12 +1,12 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-12">
-      <h1>
-        Welcome to {{ title }}!
-      </h1>
-      <h2>Here are some links to help you start: {{rootProducts}}</h2>
-      <app-summary [name]="rootName" (nameChanged)="onNameChanged($event)"></app-summary>
-      <app-product-summary [products]="rootProducts"></app-product-summary>
+    <div class="col-12">
+      <app-header></app-header>
     </div><!-- .col-xs-12 -->
   </div><!-- .row -->
+  <div class="row">
+      <div class="col-12 col-md-8 offset-md-2">
+        <router-outlet></router-outlet>
+      </div><!-- .col-xs-12 -->
+    </div><!-- .row -->
 </div><!-- .container -->

@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {ProductService} from '../products.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product-summary',
@@ -7,16 +8,23 @@ import {ProductService} from '../products.service';
   styleUrls: ['./product-summary.component.css']
 })
 export class ProductSummaryComponent implements OnInit {
-  @Input() products;
+  products = [];
+  activatedRoute: ActivatedRoute;
   prodService: ProductService;
   //products = ProductService.rootProducts;
 
-  constructor(prodService: ProductService) {
+  constructor(prodService: ProductService, activatedRoute: ActivatedRoute) {
     this.prodService = prodService;
+    this.activatedRoute = activatedRoute;
   }
 
   ngOnInit() {
     this.prodService.fetchProducts();
+    this.activatedRoute.params.subscribe(
+      // (params) => {
+
+      // }
+    );
   }
 
 }

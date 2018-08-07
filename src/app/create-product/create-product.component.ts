@@ -7,22 +7,20 @@ import {ProductService} from '../products.service';
   styleUrls: ['./create-product.component.css']
 })
 export class CreateProductComponent implements OnInit {
-  // categories = [
-  //   {display: 'None', value: 0},
-  //   {display: 'All Categories', value: 1},
-  // ]
-
   prodService: ProductService;
-  categories = [];
+  categories = prodService.productCategories;
 
   constructor(prodService: ProductService) {
     this.prodService = prodService;
   }
 
   ngOnInit() {
-    //console.log('new prod categories', this.categories);
-    this.categories = this.prodService.fetchCategories();
-    console.log(this.categories);
+    this.prodService.fetchCategories();
+    this.prodService.categoriesChanged.subscribe(
+      () => {
+        this.categories = this.prodService.productCategories;
+      }
+    );
   }
 
   onSubmit(submittedForm) {
@@ -38,7 +36,6 @@ export class CreateProductComponent implements OnInit {
     if (f.categorySelect.length > 0){
       selectedCategories = f.categorySelect;
     }
-    console.log("CATEGORIES", selectedCategories);
     this.prodService.addProduct(name, desc, url, selectedCategories);
   }
 
