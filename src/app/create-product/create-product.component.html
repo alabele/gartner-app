@@ -31,6 +31,7 @@
         <div class="form-group" *ngIf="categories?.length > 0">
             <label for="categorySelect">Select Product Categories:</label>
             <select multiple class="form-control" id="categorySelect" name="categorySelect" ngModel>
+              <option  disabled value="">No Categories</option>
               <option *ngFor="let option of categories" [value]="option.CategoryId">{{option.Name}}</option>
             </select>
           </div>

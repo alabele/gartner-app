@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {ProductService} from '../products.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -7,24 +7,27 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './product-summary.component.html',
   styleUrls: ['./product-summary.component.css']
 })
-export class ProductSummaryComponent implements OnInit {
-  products = [];
+export class ProductSummaryComponent implements OnInit, OnDestroy {
   activatedRoute: ActivatedRoute;
   prodService: ProductService;
-  //products = ProductService.rootProducts;
+  products = prodService.rootProducts;
+  subscription;
 
-  constructor(prodService: ProductService, activatedRoute: ActivatedRoute) {
+  constructor(prodService: ProductService) {
     this.prodService = prodService;
-    this.activatedRoute = activatedRoute;
   }
 
   ngOnInit() {
     this.prodService.fetchProducts();
-    this.activatedRoute.params.subscribe(
-      // (params) => {
-
-      // }
+    this.subscription = this.prodService.productsChanged.subscribe(
+      () => {
+        this.products = this.prodService.rootProducts;
+      }
     );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

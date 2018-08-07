@@ -1,4 +1,9 @@
-
-<h1>PRODUCT DETAIL</h1>>
-
-
+<div class="row">
+    <div class="col-12 col-md-8 offset-md-2">
+      <h1>{{product.Name}}</h1>
+      <p class="small" *ngFor="let category of productCategories">{{category.Name}}</p>
+      <p>{{product.Description}}</p>
+      <p>Learn More: {{product.Url}}</p>
+    </div><!-- .col-xs-12 -->
+  </div><!-- .row -->
+<router-outlet></router-outlet>

@@ -16,15 +16,17 @@ import { HeaderComponent } from './header/header.component';
 import {RouterModule} from '@angular/router';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 
+
+
 const routes = [
   {path: 'products', component: ProductSummaryComponent, children: [
     {path: '', redirectTo: '/products', pathMatch: 'full'},
     {path: ':id', component: ProductDetailComponent}
   ]},
-  // {path: 'add-product', component: CreateProductComponent, children: [
-  //   {path: '', redirectTo: '/add-product', pathMatch: 'full'},
-  //   {path: 'confirmation', component: ConfirmationComponent}
-  // ]},
+  {path: 'product-detail', redirect: '/products', children: [
+    {path: '', redirectTo: '/products', pathMatch: 'full'},
+    {path: ':id', component: ProductDetailComponent}
+  ]},
   {path: 'add-product', component: CreateProductComponent},
   {path: 'confirmation', component: ConfirmationComponent},
   {path: 'product-detail', component: ProductDetailComponent},
