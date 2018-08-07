@@ -1,26 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {ProductService} from '../products.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-create-product',
   templateUrl: './create-product.component.html',
   styleUrls: ['./create-product.component.css']
 })
-export class CreateProductComponent implements OnInit {
+export class CreateProductComponent implements OnInit, OnDestroy {
   prodService: ProductService;
   categories = prodService.productCategories;
+  subscription;
 
-  constructor(prodService: ProductService) {
+  constructor(prodService: ProductService, private router: Router) {
     this.prodService = prodService;
   }
 
   ngOnInit() {
     this.prodService.fetchCategories();
-    this.prodService.categoriesChanged.subscribe(
+    this.subscription = this.prodService.categoriesChanged.subscribe(
       () => {
         this.categories = this.prodService.productCategories;
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   onSubmit(submittedForm) {
@@ -37,6 +43,7 @@ export class CreateProductComponent implements OnInit {
       selectedCategories = f.categorySelect;
     }
     this.prodService.addProduct(name, desc, url, selectedCategories);
+    this.router.navigate(['/confirmation']);
   }
 
 }

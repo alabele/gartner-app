@@ -14,13 +14,19 @@ import { ProductService } from './products.service';
 import { CreateProductComponent } from './create-product/create-product.component';
 import { HeaderComponent } from './header/header.component';
 import {RouterModule} from '@angular/router';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 const routes = [
   {path: 'products', component: ProductSummaryComponent, children: [
     {path: '', redirectTo: '/products', pathMatch: 'full'},
     {path: ':id', component: ProductDetailComponent}
   ]},
+  // {path: 'add-product', component: CreateProductComponent, children: [
+  //   {path: '', redirectTo: '/add-product', pathMatch: 'full'},
+  //   {path: 'confirmation', component: ConfirmationComponent}
+  // ]},
   {path: 'add-product', component: CreateProductComponent},
+  {path: 'confirmation', component: ConfirmationComponent},
   {path: 'product-detail', component: ProductDetailComponent},
   {path: '**', redirectTo: '/products'}
 ];
@@ -33,14 +39,16 @@ const routes = [
     ProductSummaryComponent,
     ProductItemComponent,
     CreateProductComponent,
-    HeaderComponent
+    HeaderComponent,
+    ConfirmationComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    RouterModule.forChild(routes)
   ],
   providers: [
     ProductService,

@@ -69,7 +69,25 @@ export class ProductService {
       Url: url,
       CategoryIds: categories
     }
-    console.log("NEW PRODUCT", newProduct);
+    this.http.post('https://gdm-interview-api.azurewebsites.net/api/v1/Products', newProduct, {
+      headers {
+        'Authorization': this.token,
+      }
+    })
+    .pipe (
+      map(
+        (response: Response) => {
+            // map() is totally optional, you just subscribe() without it!
+            return response.json(); // fetch the body of the response - this of course also works for post requests
+        }
+      )
+    )
+    .subscribe(
+        (transformedData: any) => {
+            // Use your response data here
+            console.log(transformedData);
+        }
+    );
   }
 
 }
