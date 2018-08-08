@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import {Http, Response} from '@angular/http';
 import {Subject} from 'rxjs/Subject';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
+import {  throwError } from 'rxjs';
 
 @Injectable()
 export class ProductService {
@@ -35,7 +36,8 @@ export class ProductService {
     .pipe (
         map((response: Response) => {
           return response.json();
-        })
+        }),
+        catchError(this.handleError)
       )
     .subscribe(
       (data) => {
@@ -54,7 +56,8 @@ export class ProductService {
     .pipe (
         map((response: Response) => {
           return response.json();
-        })
+        }),
+        catchError(this.handleError)
       )
     .subscribe(
       (data) => {
@@ -73,7 +76,8 @@ export class ProductService {
     .pipe (
       map((response: Response) => {
         return response.json();
-      })
+      }),
+      catchError(this.handleError)
     )
     .subscribe(
       (data) => {
@@ -99,8 +103,8 @@ export class ProductService {
       map(
         (response: Response) => {
             return response.json();
-        }
-      )
+        }),
+        catchError(this.handleError)
     )
     .subscribe(
         (transformedData: any) => {
@@ -125,14 +129,26 @@ export class ProductService {
       map(
         (response: Response) => {
             return response.json();
-        }
-      )
+        }),
+        catchError(this.handleError)
     )
     .subscribe(
         (transformedData: any) => {
             console.log(transformedData);
         }
     );
+  }
+
+  //Generic error handler via Angular docs
+  handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      console.error('Error:', error.error.message);
+    } else {
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+    }
+    return throwError('Whoops. An error occurred.');
   }
 
 }
