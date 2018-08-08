@@ -8,9 +8,9 @@ import {ProductService} from './products.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  prodService = ProductService;
-  rootProducts = prodService.rootProducts;
-
+  prodService: ProductService;
+  // rootProducts = this.prodService.rootProducts;
+rootProducts = prodService.rootProducts;
 
 constructor (prodService: ProductService) {
   this.prodService = prodService;

@@ -3,8 +3,7 @@ import {Http, Response, Headers} from '@angular/http';
 import {Subject} from 'rxjs/Subject';
 import { map, catchError } from 'rxjs/operators';
 import {  throwError } from 'rxjs';
-import { HttpErrorResponse } from "@angular/common/http";
-
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Injectable()
 export class ProductService {
@@ -15,7 +14,7 @@ export class ProductService {
   productCategories = [];
 
   // Current Single Product Details
-  productDetail = {Name: '', Description: '', Categories: [] };
+  productDetail = {Name: '', Description: '', Url: '', Categories: [], ProductId: 0};
 
   // Subscribe to changes to all of the above
   categoriesChanged = new Subject<void>();
@@ -24,14 +23,10 @@ export class ProductService {
 
   productDetailChanged = new Subject<void>();
 
-
-  // API JWT
   // tslint:disable-next-line:max-line-length
   token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiIxMCIsInVuaXF1ZV9uYW1lIjoiaW50ZXJ2aWV3YXBpQGdhcnRuZXIuY29tIiwiZW1haWwiOiJpbnRlcnZpZXdhcGlAZ2FydG5lci5jb20iLCJuYmYiOjE1MzMwNjQyMjIsImV4cCI6MTU5MzA2NDE2MiwiaWF0IjoxNTMzMDY0MjIyfQ.M7Sqp47Zpq5_zqkxiLwZVCjpSiKpOL2CkwgFSo3V624';
 
   http: Http;
-
-
 
   constructor (http: Http) {
     this.http = http;
@@ -39,12 +34,8 @@ export class ProductService {
 
   // Fetch all products GET request
   fetchProducts() {
-
-    this.http.get('https://gdm-interview-api.azurewebsites.net/api/v1/Products', {
-      headers: {
-        Authorization: this.token,
-      }
-    })
+    const headers = new Headers({'Authorization': this.token});
+   return this.http.get('https://gdm-interview-api.azurewebsites.net/api/v1/Products', {headers: headers})
     .pipe (
         map((response: Response) => {
           return response.json();
@@ -63,11 +54,9 @@ export class ProductService {
 
   // Fetch Individual Product GET Request, takes Product ID
   getProduct(id) {
-    this.http.get('https://gdm-interview-api.azurewebsites.net/api/v1/Products/' + id, {
-      headers: {
-        Authorization: this.token,
-      }
-    })
+    const headers = new Headers({'Authorization': this.token});
+   return  this.http.get('https://gdm-interview-api.azurewebsites.net/api/v1/Products/' + id, {
+      headers: headers})
     .pipe (
         map((response: Response) => {
           return response.json();
@@ -86,11 +75,8 @@ export class ProductService {
 
   // Fetch all Categories GET Request
   fetchCategories() {
-    this.http.get('https://gdm-interview-api.azurewebsites.net/api/v1/Categories', {
-      headers: {
-        Authorization: this.token,
-      }
-    })
+    const headers = new Headers({'Authorization': this.token});
+    return this.http.get('https://gdm-interview-api.azurewebsites.net/api/v1/Categories',  {headers: headers})
     .pipe (
       map((response: Response) => {
         return response.json();
@@ -108,18 +94,16 @@ export class ProductService {
   }
 
   // Create New Product POST Request,  takes Product Name, Description, URL, and Categories (array)
-  addProduct(name, desc, url, categories){
+  addProduct(name, desc, url, categories) {
+    const headers = new Headers({'Authorization': this.token});
     const newProduct = {
       Name: name,
       Description: desc,
       Url: url,
       CategoryIds: categories
-    }
-    this.http.post('https://gdm-interview-api.azurewebsites.net/api/v1/Products', newProduct, {
-      headers: {
-        Authorization: this.token,
-      }
-    })
+    };
+    return this.http.post('https://gdm-interview-api.azurewebsites.net/api/v1/Products', newProduct,  {
+      headers: headers})
     .pipe (
       map(
         (response: Response) => {
@@ -136,17 +120,15 @@ export class ProductService {
 
   // Edit Product PUT Request, takes Product Name, Description, URL, Categories (array), and ID
   editProduct(name, desc, url, categories, id) {
+    const headers = new Headers({'Authorization': this.token});
     const newProduct = {
       Name: name,
       Description: desc,
       Url: url,
       CategoryIds: categories
     };
-    this.http.put('https://gdm-interview-api.azurewebsites.net/api/v1/Products/' + id, newProduct, {
-      headers: {
-        Authorization: this.token,
-      }
-    })
+    return this.http.put('https://gdm-interview-api.azurewebsites.net/api/v1/Products/' + id, newProduct,  {
+      headers: headers})
     .pipe (
       map(
         (response: Response) => {
@@ -174,3 +156,4 @@ export class ProductService {
   }
 
 }
+

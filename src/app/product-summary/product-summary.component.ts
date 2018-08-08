@@ -12,7 +12,7 @@ export class ProductSummaryComponent implements OnInit, OnDestroy {
   prodService: ProductService;
 
   // Array of all products
-  products = prodService.rootProducts;
+  products = this.prodService.rootProducts;
 
   subscription;
 
