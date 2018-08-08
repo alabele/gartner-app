@@ -5,3 +5,12 @@ input.ng-invalid.ng-touched {
 .help-block, .required {
   color: rgba(244, 66, 101, 1);
 }
+h1 {
+  margin: 0 0 20px;
+}
+input, textarea {
+  margin: 0 0 30px;
+}
+.btn {
+  margin: 30px 0 0;
+}
