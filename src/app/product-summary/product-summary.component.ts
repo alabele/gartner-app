@@ -10,7 +10,10 @@ import { ActivatedRoute } from '@angular/router';
 export class ProductSummaryComponent implements OnInit, OnDestroy {
   activatedRoute: ActivatedRoute;
   prodService: ProductService;
+
+  // Array of all products
   products = prodService.rootProducts;
+
   subscription;
 
   constructor(prodService: ProductService) {
@@ -18,7 +21,10 @@ export class ProductSummaryComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // Fetch all products via API onInit
     this.prodService.fetchProducts();
+
+    // Subscribe to changes and update products accordingly
     this.subscription = this.prodService.productsChanged.subscribe(
       () => {
         this.products = this.prodService.rootProducts;
@@ -27,6 +33,8 @@ export class ProductSummaryComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+
+    // Destroy subscription
     this.subscription.unsubscribe();
   }
 

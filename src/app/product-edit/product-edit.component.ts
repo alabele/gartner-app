@@ -10,11 +10,22 @@ import {Router} from '@angular/router';
   styleUrls: ['./product-edit.component.css']
 })
 export class ProductEditComponent implements OnInit, OnDestroy {
+
+  // Individual product object
   product = prodService.productDetail;
+
+  // Product ID
   id = '';
+
+  // Categories selected for this product
   productCategories = prodService.productDetail.Categories;
+
+  // Categories selected for this product, two-way bound to <select>
   selectedCategories = [];
+
+  // All available product categories
   categories = prodService.productCategories;
+
   prodService: ProductService;
   activatedRoute: ActivatedRoute;
   subscription;
@@ -31,18 +42,29 @@ export class ProductEditComponent implements OnInit, OnDestroy {
           if (params.id === undefined) {
             return;
           }
+          // Using parametered ID, fetch Product Detail via API
           this.prodService.getProduct(params.id);
+
+          // Set ID to parametered ID
           this.id = params.id;
         }
       );
+
+      // Fetch all categories
       this.prodService.fetchCategories();
+
+      // On change to Product Detail, update local product, product categories, and selected categories
       this.subscription = this.prodService.productDetailChanged.subscribe(
         () => {
           this.product = this.prodService.productDetail;
           this.productCategories = this.prodService.productDetail.Categories;
+
+          // Map selected categories array to be an array of selected CategoryIDs, only
           this.selectedCategories =  this.productCategories.map((c) => c.CategoryId);
         }
       );
+
+      // Watch for changes to categories
       this.subscription = this.prodService.categoriesChanged.subscribe(
       () => {
           this.categories = this.prodService.productCategories;
@@ -51,9 +73,12 @@ export class ProductEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+
+    // Destroy subscription
     this.subscription.unsubscribe();
   }
 
+  // On Submit function to send PUT request updating Product detail on server
   editProduct(submittedForm) {
     if (submittedForm.invalid) {
       return;
@@ -67,7 +92,11 @@ export class ProductEditComponent implements OnInit, OnDestroy {
     if (f.categorySelect.length > 0) {
       selectedCategories = f.categorySelect;
     }
+
+    // PUT request
     this.prodService.editProduct(name, desc, url, selectedCategories, prodId);
+
+    // After submit, route to product detail page for that product
     this.router.navigate(['/product-detail/' + prodId]);
   }
 
