@@ -8,15 +8,17 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit, OnDestroy {
-  // Product detail object
-  product = prodService.productDetail;
-
-  // Categories attributed to this product
-  productCategories = prodService.productDetail.Categories;
-
   prodService: ProductService;
   activatedRoute: ActivatedRoute;
   subscription;
+
+  // Product detail object
+  product = this.prodService.productDetail;
+
+  // Categories attributed to this product
+  productCategories = this.prodService.productDetail.Categories;
+
+
 
   constructor(prodService: ProductService, activatedRoute: ActivatedRoute) {
     this.prodService = prodService;

@@ -10,25 +10,26 @@ import {Router} from '@angular/router';
   styleUrls: ['./product-edit.component.css']
 })
 export class ProductEditComponent implements OnInit, OnDestroy {
+  prodService: ProductService;
+  activatedRoute: ActivatedRoute;
+  subscription;
 
   // Individual product object
-  product = prodService.productDetail;
+  product = this.prodService.productDetail;
 
   // Product ID
   id = '';
 
   // Categories selected for this product
-  productCategories = prodService.productDetail.Categories;
+  productCategories = this.prodService.productDetail.Categories;
 
   // Categories selected for this product, two-way bound to <select>
   selectedCategories = [];
 
   // All available product categories
-  categories = prodService.productCategories;
+  categories = this.prodService.productCategories;
 
-  prodService: ProductService;
-  activatedRoute: ActivatedRoute;
-  subscription;
+
 
   constructor(prodService: ProductService, activatedRoute: ActivatedRoute, private router: Router) {
     this.prodService = prodService;
