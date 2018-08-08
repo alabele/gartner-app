@@ -5,11 +5,7 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ProductService {
-  rootProducts = [
-    { name: 'Product1', description: 'lorem ipsum product 1', id: '1'},
-    { name: 'Product2', description: 'lorem ipsum product 2', id: '2'},
-    { name: 'Product3', description: 'lorem ipsum product 3', id: '3'}
-  ]
+  rootProducts = [];
 
   productCategories = [];
 
@@ -21,12 +17,10 @@ export class ProductService {
 
   productDetailChanged = new Subject<void>();
 
+  // tslint:disable-next-line:max-line-length
   token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiIxMCIsInVuaXF1ZV9uYW1lIjoiaW50ZXJ2aWV3YXBpQGdhcnRuZXIuY29tIiwiZW1haWwiOiJpbnRlcnZpZXdhcGlAZ2FydG5lci5jb20iLCJuYmYiOjE1MzMwNjQyMjIsImV4cCI6MTU5MzA2NDE2MiwiaWF0IjoxNTMzMDY0MjIyfQ.M7Sqp47Zpq5_zqkxiLwZVCjpSiKpOL2CkwgFSo3V624';
 
   http: Http;
-  //static productCategories: any;
-
-
 
   constructor (http: Http) {
     this.http = http;
