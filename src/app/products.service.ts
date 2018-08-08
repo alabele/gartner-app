@@ -65,7 +65,6 @@ export class ProductService {
     .subscribe(
       (data) => {
         this.productDetail = data;
-        console.log("product detail", data);
         this.productDetailChanged.next();
       }
     );
@@ -98,6 +97,32 @@ export class ProductService {
       CategoryIds: categories
     }
     this.http.post('https://gdm-interview-api.azurewebsites.net/api/v1/Products', newProduct, {
+      headers {
+        'Authorization': this.token,
+      }
+    })
+    .pipe (
+      map(
+        (response: Response) => {
+            return response.json();
+        }
+      )
+    )
+    .subscribe(
+        (transformedData: any) => {
+            console.log(transformedData);
+        }
+    );
+  }
+
+  editProduct(name, desc, url, categories, id) {
+    const newProduct = {
+      Name: name,
+      Description: desc,
+      Url: url,
+      CategoryIds: categories
+    }
+    this.http.put('https://gdm-interview-api.azurewebsites.net/api/v1/Products/' + id, newProduct, {
       headers {
         'Authorization': this.token,
       }

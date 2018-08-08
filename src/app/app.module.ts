@@ -19,13 +19,11 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 
 const routes = [
-  {path: 'products', component: ProductSummaryComponent, children: [
-    {path: '', redirectTo: '/products', pathMatch: 'full'},
-    {path: ':id', component: ProductDetailComponent}
-  ]},
+  {path: 'products', component: ProductSummaryComponent},
   {path: 'product-detail', redirect: '/products', children: [
     {path: '', redirectTo: '/products', pathMatch: 'full'},
-    {path: ':id', component: ProductDetailComponent}
+    {path: ':id', component: ProductDetailComponent},
+    {path: ':id/edit', component: ProductEditComponent}
   ]},
   {path: 'add-product', component: CreateProductComponent},
   {path: 'confirmation', component: ConfirmationComponent},

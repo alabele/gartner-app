@@ -1,7 +1,53 @@
-<p>
-  product-edit works!
-  <button (click)="editProduct()"
-    class="btn"
-    [ngClass]="{'btn-primary': productInput !== '', 'btn-default': productInput ===''}">Update Product</button>
-
-</p>
+<h1>Edit {{product.Name}}</h1>
+<div class="create-product">
+    <form (ngSubmit)="editProduct(form)" #form="ngForm" class="needs-validation" novalidate>
+        <div class="form-group">
+          <label for="name">Product Name<span class="required">*</span><br/><span class="small">(max 50 characters)</span></label>
+          <input type="text"
+            id="name"
+            name="name"
+            class="form-control"
+            maxlength="50"
+            ngModel="{{product.Name}}"
+            required
+            #nameInput="ngModel">
+          <div class="help-block small" *ngIf="nameInput.invalid && nameInput.touched">
+              Please provide a Product Name.
+          </div>
+          <label for="description">Product Description <br/><span class="small">(max 200 characters)</span></label>
+          <textarea
+            type="textarea"
+            id="description"
+            name="description"
+            class="form-control"
+            rows="5"
+            maxlength="200"
+            ngModel="{{product.Description}}"
+            ></textarea>
+          <label for="url">Product URL<br/><span class="small">(max 500 characters)</span></label>
+          <input type="text"
+          id="url"
+          name="url"
+          class="form-control"
+          maxlength="500"
+          ngModel="{{product.Url}}"
+          #urlInput="ngModel">
+          <div class="help-block small" *ngIf="urlInput.invalid && urlInput.touched">
+              Please provide a url with either http:// or https://
+          </div>
+          <p *ngIf="categories?.length === 0">No Product Categories :(</p>
+          <div class="form-group" *ngIf="categories?.length > 0">
+              <label for="categorySelect">Select Product Categories:</label>
+              <select multiple class="form-control" id="categorySelect" name="categorySelect" [(ngModel)]="selectedCategories">
+                <option  disabled value="">No Categories</option>
+                <option *ngFor="let option of categories" [value]="option.CategoryId" [selected]="true">{{option.Name}}</option>
+              </select>
+            </div>
+          <button
+          type="submit"
+          [disabled]="form.invalid"
+          class="btn"
+          [ngClass]="{'btn-primary': productInput !== '', 'btn-default': productInput ===''}">Update Product</button>
+        </div><!-- .form-group -->
+    </form>
+  </div><!-- .create-product-->

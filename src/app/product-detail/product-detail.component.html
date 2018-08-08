@@ -4,6 +4,7 @@
       <p class="small" *ngFor="let category of productCategories">{{category.Name}}</p>
       <p>{{product.Description}}</p>
       <p>Learn More: {{product.Url}}</p>
+      <button class="btn btn-primary" routerLink="/product-detail/{{product.ProductId}}/edit">Edit Product</button>
     </div><!-- .col-xs-12 -->
   </div><!-- .row -->
 <router-outlet></router-outlet>
