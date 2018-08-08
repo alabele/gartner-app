@@ -12,8 +12,8 @@ export class ProductSummaryComponent implements OnInit, OnDestroy {
   prodService: ProductService;
 
   // Array of all products
-  products = this.prodService.rootProducts;
-
+  //products = this.prodService.rootProducts;
+  products = [];
   subscription;
 
   constructor(prodService: ProductService) {

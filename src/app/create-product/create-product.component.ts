@@ -11,7 +11,8 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   prodService: ProductService;
 
   // Array of all available categories
-  categories = this.prodService.productCategories;
+  // categories = this.prodService.productCategories;
+  categories = [];
 
   subscription;
 

@@ -15,20 +15,22 @@ export class ProductEditComponent implements OnInit, OnDestroy {
   subscription;
 
   // Individual product object
-  product = this.prodService.productDetail;
+    // product = this.prodService.productDetail;
+    product = {Name: '', Description: '', Url: '', Categories: [], ProductId: 0};
 
   // Product ID
   id = '';
 
   // Categories selected for this product
-  productCategories = this.prodService.productDetail.Categories;
+  // productCategories = this.prodService.productDetail.Categories;
+  productCategories = [];
 
   // Categories selected for this product, two-way bound to <select>
   selectedCategories = [];
 
   // All available product categories
-  categories = this.prodService.productCategories;
-
+    // categories = this.prodService.productCategories;
+categories = [];
 
 
   constructor(prodService: ProductService, activatedRoute: ActivatedRoute, private router: Router) {

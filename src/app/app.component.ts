@@ -10,7 +10,7 @@ import {ProductService} from './products.service';
 export class AppComponent {
   prodService: ProductService;
   // rootProducts = this.prodService.rootProducts;
-rootProducts = prodService.rootProducts;
+//rootProducts = this.prodService.rootProducts;
 
 constructor (prodService: ProductService) {
   this.prodService = prodService;
