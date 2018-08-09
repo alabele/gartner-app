@@ -13,13 +13,10 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   subscription;
 
   // Product detail object
-  //product = this.prodService.productDetail;
   product = {Name: '', Description: '', Url: '', Categories: [], ProductId: 0};
 
   // Categories attributed to this product
-  // productCategories = this.prodService.productDetail.Categories;
-
-productCategories = [];
+  productCategories = [];
 
   constructor(prodService: ProductService, activatedRoute: ActivatedRoute) {
     this.prodService = prodService;
